@@ -2,8 +2,10 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the city name that was clicked
+                String clickedCityName = dataList.get(position);
+
+                // Create intent to open ShowActivity
+                Intent openShowActivity = new Intent(MainActivity.this, ShowActivity.class);
+
+                // Pass the city name to ShowActivity
+                openShowActivity.putExtra("SELECTED_ACTIVITY", clickedCityName);
+
+                // Start the new activity
+                startActivity(openShowActivity);
+            }
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
